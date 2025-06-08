@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Number Match Game - Empower Our Future</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      overflow: hidden; /* Prevents scrolling */
+    }
+
+    /* Start Page Styles */
+    #startPage {
+      height: 100vh;
+      background: url('https://i.ibb.co/0VGHkvbc/Screenshot-20250130-225348.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    #startPage h1 {
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255, 255, 0, 1), 0 0 20px rgba(0, 255, 0, 1);
+      font-size: 3vw; /* Responsive font size */
+    }
+
+    .profile-container {
+      width: 30vw; /* Responsive width */
+      height: 30vw; /* Responsive height */
+      max-width: 300px; /* Maximum width */
+      max-height: 300px; /* Maximum height */
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 4px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.8), 0 0 20px rgba(128, 0, 128, 0.8);
+      transition: box-shadow 0.3s;
+    }
+
+    .profile-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .start-btn, .btn, #backToStart {
+      padding: 2vw 4vw; /* Responsive padding */
+      font-size: 2vw; /* Responsive font size */
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    .start-btn:hover, .btn:hover, #backToStart:hover {
+      box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 20px rgba(0, 255, 0, 1);
+    }
+
+    /* Game Page Styles */
+    #gamePage {
+      display: none;
+      text-align: center;
+      height: 100vh;
+      background: url('https://i.ibb.co/CKXy0r2T/Screenshot-20250527-215428.jpg') no-repeat center center fixed;
+      background-size: cover;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 20px rgba(0, 0, 255, 1);
+      font-size: 3vw; /* Responsive font size */
+    }
+
+    #designer {
+      color: #fff;
+      text-shadow: 0 0 15px rgba(255, 255, 0, 1), 0 0 15px rgba(0, 255, 0, 1);
+      font-size: 2vw; /* Responsive font size */
+    }
+
+    #game {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2vw; /* Responsive gap */
+      margin-top: 2vw; /* Responsive margin */
+    }
+
+    .slot {
+      width: 10vw; /* Responsive width */
+      height: 10vw; /* Responsive height */
+      max-width: 60px; /* Maximum width */
+      max-height: 60px; /* Maximum height */
+      border-radius: 10px;
+      border: 2px solid transparent;
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.8), 0 0 15px rgba(0, 0, 255, 0.8);
+      transition: background 0.3s, border 0.3s, box-shadow 0.3s;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .number {
+      width: 10vw; /* Responsive width */
+      height: 10vw; /* Responsive height */
+      max-width: 60px; /* Maximum width */
+      max-height: 60px; /* Maximum height */
+      font-size: 2vw; /* Responsive font size */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      background: #6cc6f3;
+      color: #fff;
+      cursor: grab;
+      box-shadow: 0 0 20px rgba(0, 128, 0, 1);
+      transition: box-shadow 0.3s;
+    }
+
+    .number.dragging {
+      opacity: 0.5;
+    }
+
+    #result {
+      margin-top: 2vw; /* Responsive margin */
+      font-size: 2vw; /* Responsive font size */
+      color: green;
+    }
+
+    /* Rewards Page Styles */
+    #rewardsPage {
+      display: none;
+      height: 100vh;
+      background: url('https://i.ibb.co/PG9bqJ92/Screenshot-20250602-134050.jpg') no-repeat center center fixed;
+      background-size: cover;
+      text-align: center;
+      color: white;
+      padding: 2vw; /* Responsive padding */
+    }
+
+    #giftSection {
+      background: rgba(255, 255, 255, 0.8);
+      padding: 2vw; /* Responsive padding */
+      border-radius: 12px;
+      margin-top: 2vw; /* Responsive margin */
+    }
+
+    .gift-box {
+      width: 15vw; /* Responsive width */
+      height: 15vw; /* Responsive height */
+      max-width: 100px; /* Maximum width */
+      max-height: 100px; /* Maximum height */
+      margin: 10px;
+      background: url('https://em-content.zobj.net/source/telegram/358/present_1f381.png') center/contain no-repeat;
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      box-shadow: 0 0 10px rgba(0, 0, 255, 0.5), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 10px rgba(128, 0, 128, 0.5);
+      transition: transform 0.2s;
+    }
+
+    .gift-box:hover {
+      transform: scale(1.1);
+    }
+
+    .gift-box.opened {
+      background-color: #fff;
+      background-size: contain;
+      font-size: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    #congratsMessage {
+      font-size: 2vw; /* Responsive font size */
+      margin-top: 20px;
+      color: #444;
+    }
+
+    #playAgain {
+      margin-top: 20px;
+      padding: 2vw 4vw; /* Responsive padding */
+      background: #28a745;
+      color: #fff;
+      font-size: 2vw; /* Responsive font size */
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: none;
+    }
+
+    #backToStart {
+      background: #dc3545;
+      color: #fff;
+      display: inline-block;
+      margin-top: 20px;
+      padding: 2vw 4vw; /* Responsive padding */
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 10px rgba(0, 255, 0, 0.5);
+    }
+
+    #backToStart:hover {
+      background: #c82333;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 20px rgba(0, 255, 0, 1);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="startPage">
+    <h1>Welcome to <br>Number Match Game!</h1>
+    <h1>DREAM YA KUTOKA KWA BLOCK</h1>
+    <h1>PLAY AND GET REWARDS</h1>
+    <div class="profile-container">
+      <img src="https://i.ibb.co/SDHsHzbq/IMG-20250207-WA0110.jpg" alt="Profile Picture" />
+    </div>
+    <button class="start-btn" id="startGameBtn">Play Game</button>
+  </div>
+
+  <div id="gamePage">
+    <h1>MATCH THE NUMBERS</h1>
+    <p>
+      Drag each number to its correct slot.<br />
+      If you put a wrong number in a box that is not <br />
+      following the previous number<br />
+      the level restarts <br />
+      <span id="designer">DESIGNED BY: OMAN</span>
+    </p>
+
+    <div id="game"></div>
+    <div id="result"></div>
+
+    <button id="nextLevel" class="btn">Next Level</button>
+    <button id="restart" class="btn restart">Restart</button>
+    <button id="quit" class="btn quit">Quit to Level 1</button>
+    <button id="backToStart">Back to Start</button>
+    <button id="skipToRewards" class="btn">Skip to Rewards</button> <!-- New button to skip to rewards -->
+  </div>
+
+  <div id="rewardsPage">
+  <h1>EMPOWER OUR FUTURE</h1>
+  <h1>PROUDLY DESIGNED BY:<br> OMAN</h1>
+    <div id="giftSection">
+      <h1>🎁CHOOSE YOUR GIFT🎁<br>😜CHOOSE ONLY ONE BOX OF YOUR LUCK😜</h1>
+      <div id="gifts"></div>
+      <div id="congratsMessage"></div>
+      <button id="playAgain" class="play-again">Play Again</button> <!-- Button to go back to first level -->
+      
+    </div>
+  </div>
+
+  <script>
+    const startPage = document.getElementById('startPage');
+    const gamePage = document.getElementById('gamePage');
+    const rewardsPage = document.getElementById('rewardsPage');
+    const startGameBtn = document.getElementById('startGameBtn');
+    const backToStartBtn = document.getElementById('backToStart');
+    const skipToRewardsBtn = document.getElementById('skipToRewards'); // Reference to the new button
+
+    const game = document.getElementById('game');
+    const result = document.getElementById('result');
+    const nextLevelBtn = document.getElementById('nextLevel');
+    const restartBtn = document.getElementById('restart');
+    const quitBtn = document.getElementById('quit');
+    const giftSection = document.getElementById('giftSection');
+    const gifts = document.getElementById('gifts');
+    const congratsMessage = document.getElementById('congratsMessage');
+    const playAgainBtn = document.getElementById('playAgain');
+
+    let matches = 0;
+    let currentLevel = 1;
+    const levelRanges = [20, 30, 40];
+    const emojis = [
+      "🐯 You are greater than you think",
+      "🍎 You will get healthier",
+      "🚁 You will board an aeroplane soon",
+      "💰 Cash bag reward for you",
+      "🍿 Buy yourself something amazing",
+      "🏯 You will settle in a mansion",
+      "🎀 You got a Red bowtie",
+      "👑 You can be the greatest very soon",
+      "🎁 You will receive as many gift in your life",
+      "🌟 Shine bright like a star",
+      "🚀 Ready to launch your dreams",
+      "🌈 A rainbow of opportunities"
+    ];
+
+    function createSlots(level) {
+      game.innerHTML = '';
+      for (let i = 1; i <= levelRanges[level - 1]; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'slot';
+        slot.dataset.number = i;
+        slot.addEventListener('dragover', dragOver);
+        slot.addEventListener('drop', drop);
+        game.appendChild(slot);
+      }
+    }
+
+    function createNumbers(level) {
+      const numbers = [];
+      const max = levelRanges[level - 1];
+      for (let i = 1; i <= max; i++) {
+        numbers.push(i);
+      }
+
+      // Shuffle numbers
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+
+      numbers.forEach(num => {
+        const numberDiv = document.createElement('div');
+        numberDiv.className = 'number';
+        numberDiv.draggable = true;
+        numberDiv.textContent = num;
+        numberDiv.dataset.number = num;
+        numberDiv.addEventListener('dragstart', dragStart);
+        numberDiv.addEventListener('dragend', dragEnd);
+        game.appendChild(numberDiv);
+      });
+    }
+
+    function dragStart(e) {
+      e.dataTransfer.setData('text/plain', e.target.dataset.number);
+      e.target.classList.add('dragging');
+    }
+
+    function dragEnd(e) {
+      e.target.classList.remove('dragging');
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+    }
+
+    function drop(e) {
+      e.preventDefault();
+      const droppedNumber = e.dataTransfer.getData('text/plain');
+      const slotNumber = e.currentTarget.dataset.number;
+
+      if (!e.currentTarget.textContent) {
+        if (parseInt(droppedNumber) === parseInt(slotNumber)) {
+          // Append the dragged number div into the slot
+          const draggedElem = document.querySelector(`.number[data-number='${droppedNumber}']`);
+          if (draggedElem) {
+            e.currentTarget.appendChild(draggedElem);
+            draggedElem.draggable = false;
+            draggedElem.style.cursor = 'default';
+            matches++;
+            result.textContent = `Matches: ${matches} / ${levelRanges[currentLevel - 1]}`;
+            checkLevelComplete();
+          }
+        } else {
+          alert('😫Wrong Number or Wrong slot😫 please press okey to restart level🥹😭😭🤧Keep trying please 🤸');
+          restartLevel();
+        }
+      }
+    }
+
+    function checkLevelComplete() {
+      if (matches === levelRanges[currentLevel - 1]) {
+        if (currentLevel < 3) {
+          nextLevelBtn.style.display = 'inline-block';
+          result.textContent += ' - 💥🎉Congratulations!!  💥🎊Level complete ✅🎁click the next level.';
+        } else {
+          // All levels complete, show gift section
+          showGifts();
+        }
+      }
+    }
+
+    function restartLevel() {
+      matches = 0;
+      result.textContent = '';
+      nextLevelBtn.style.display = 'none';
+      giftSection.style.display = 'none';
+      createGame(currentLevel);
+    }
+
+    function createGame(level) {
+      game.innerHTML = '';
+      createSlots(level);
+      createNumbers(level);
+      result.textContent = Matches; 0 / $ ;{levelRanges[level - 1]};
+      nextLevelBtn.style.display = 'none';
+      giftSection.style.display = 'none';
+      matches = 0;
+    }
+
+    function showGifts() {
+      gamePage.style.display = 'none';
+      rewardsPage.style.display = 'block';
+      giftSection.style.display = 'block';
+      gifts.innerHTML = '';
+      congratsMessage.textContent = '';
+      playAgainBtn.style.display = 'none';
+
+      // Change the loop to create 12 gift boxes
+      for (let i = 0; i < 12; i++) {
+        const giftBox = document.createElement('div');
+        giftBox.className = 'gift-box';
+        giftBox.dataset.index = i;
+        giftBox.addEventListener('click', openGift);
+        gifts.appendChild(giftBox);
+      }
+    }
+
+    function openGift(e) {
+      const giftBox = e.currentTarget;
+      if (giftBox.classList.contains('opened')) return;
+
+      const index = parseInt(giftBox.dataset.index);
+      const message = emojis[index] || "You got a gift!";
+
+      giftBox.classList.add('opened');
+      giftBox.textContent = '🎉';
+      congratsMessage.textContent = message;
+
+      // Show Play Again button after opening a gift
+      playAgainBtn.style.display = 'inline-block';
+
+      // Disable other gift boxes
+      const allGifts = gifts.querySelectorAll('.gift-box');
+      allGifts.forEach(box => {
+        box.removeEventListener('click', openGift);
+      });
+    }
+
+    startGameBtn.addEventListener('click', () => {
+      startPage.style.display = 'none';
+      gamePage.style.display = 'block';
+      currentLevel = 1;
+      createGame(currentLevel);
+    });
+
+    backToStartBtn.addEventListener('click', () => {
+      gamePage.style.display = 'none';
+      rewardsPage.style.display = 'none';
+      startPage.style.display = 'flex';
+      giftSection.style.display = 'none';
+      result.textContent = '';
+      nextLevelBtn.style.display = 'none';
+      playAgainBtn.style.display = 'none';
+    });
+
+    skipToRewardsBtn.addEventListener('click', () => {
+      currentLevel = 3; // Set to the last level
+      showGifts(); // Show the rewards page directly
+    });
+
+    nextLevelBtn.addEventListener('click', () => {
+      currentLevel++;
+      createGame(currentLevel);
+      nextLevelBtn.style.display = 'none';
+    });
+
+    restartBtn.addEventListener('click', () => {
+      createGame(currentLevel);
+      nextLevelBtn.style.display = 'none';
+    });
+
+    quitBtn.addEventListener('click', () => {
+      currentLevel = 1;
+      createGame(currentLevel);
+      nextLevelBtn.style.display = 'none';
+    });
+
+    playAgainBtn.addEventListener('click', () => {
+      currentLevel = 1; // Reset to the first level
+      gamePage.style.display = 'none'; // Hide the rewards page
+      rewardsPage.style.display = 'none'; // Hide the rewards page
+      startPage.style.display = 'flex'; // Show the start page
+      createGame(currentLevel); // Create the game for the first level
+      playAgainBtn.style.display = 'none'; // Hide the play again button
+      result.textContent = ''; // Reset the result text
+      nextLevelBtn.style.display = 'none'; // Hide the next level button
+    });
+  </script>
+</body>
+</html>

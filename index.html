@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Number Match Game - Empower Our Future</title>
+  </head>
+  <link rel="stylesheet" href="style.css">
+<body>
+
+  <div id="startPage">
+    <h1>Welcome to <br>Number Match Game!</h1>
+    <h1>DREAM YA KUTOKA KWA BLOCK</h1>
+    <h1>PLAY AND GET REWARDS</h1>
+    <div class="profile-container">
+      <img src="https://i.ibb.co/SDHsHzbq/IMG-20250207-WA0110.jpg" alt="Profile Picture" />
+    </div>
+    <button class="start-btn" id="startGameBtn">Play Game</button>
+  </div>
+
+  <div id="gamePage">
+    <h1>MATCH THE NUMBERS</h1>
+    <p>
+      Drag each number to its correct slot.<br />
+      If you put a wrong number in a box that is not <br />
+      following the previous number<br />
+      the level restarts <br />
+      <span id="designer">DESIGNED BY: OMAN</span>
+    </p>
+
+    <div id="game"></div>
+    <div id="result"></div>
+
+    <button id="nextLevel" class="btn">Next Level</button>
+    <button id="restart" class="btn restart">Restart</button>
+    <button id="quit" class="btn quit">Quit to Level 1</button>
+    <button id="backToStart">Back to Start</button>
+    
+  </div>
+
+  <div id="rewardsPage">
+  <h1>EMPOWER OUR FUTURE</h1>
+  <h1>PROUDLY DESIGNED BY:<br> OMAN</h1>
+    <div id="giftSection">
+      <h1>🎁CHOOSE YOUR GIFT🎁<br>😜CHOOSE ONLY ONE BOX OF YOUR LUCK😜</h1>
+      <div id="gifts"></div>
+      <div id="congratsMessage"></div>
+      <button id="playAgain" class="play-again">Play Again</button> <!-- Button to go back to first level -->
+      
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
